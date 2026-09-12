@@ -128,6 +128,13 @@ lib/                          SARR, point reliability filter, refinement, AUC
 checkpoints/                  released T-LESS / LM-O weights
 ```
 
+## Code availability
+
+The code, released weights, and evaluation results are archived on Zenodo
+(DOI [10.5281/zenodo.22726061](https://doi.org/10.5281/zenodo.22726061))
+and hosted at
+[https://anonymous.4open.science/r/RVC6D-DEF5](https://anonymous.4open.science/r/RVC6D-DEF5).
+
 ## License
 
 Released under the MIT License (see `LICENSE`) for double-blind review;
