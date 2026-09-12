@@ -1,0 +1,42 @@
+{
+  "dataset": "lmo",
+  "dataset_root": "/root/autodl-tmp/RVC6D-main/data/lmo",
+  "checkpoint": "checkpoints/rvc6d_lmo_e36.pth.tar",
+  "detections": "/root/autodl-tmp/bop/lmo/gdrnpp_yolox_lmo-test.json",
+  "targets": "/root/autodl-tmp/RVC6D-main/data/lmo/test_targets_bop19.json",
+  "images": 200,
+  "rows": 1445,
+  "csv": "/root/autodl-tmp/RVC6D-main/evaluation/rvc6d_lmo-test.csv",
+  "coverage": {
+    "target_tuples": 1445,
+    "target_instances": 1445,
+    "covered_instances": 1445,
+    "missing_instances": 0,
+    "missing_target_tuples": 0,
+    "missing_preview": []
+  },
+  "pose_time_s": {
+    "count": 200,
+    "mean_s": 0.005742971636354923,
+    "median_s": 0.005685208365321159,
+    "p95_s": 0.006039054878056049
+  },
+  "image_time_s": {
+    "count": 200,
+    "mean_s": 0.0873130181367742,
+    "median_s": 0.08502068486995995,
+    "p95_s": 0.09845602841232903
+  },
+  "wall_time_s": 7.73806899599731,
+  "csv_time_mode": "det_plus_pose",
+  "cuda_graph_sizes": [
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "graph_capture_fallbacks": [],
+  "verified_images": 3,
+  "timing_note": "pose time = H2D + forward + fused decode + D2H + metric translation restore, CUDA synchronized, one batch per image; csv time adds the detector time from the detection JSON (BOP detector+pose convention)"
+}

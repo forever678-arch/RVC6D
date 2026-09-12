@@ -1,0 +1,69 @@
+{
+  "dataset": "tless",
+  "dataset_root": "data/tless",
+  "checkpoint": "checkpoints/rvc6d_tless_e39.pth.tar",
+  "detections": "data_gdrnppdet_tless-test.json",
+  "targets": "data/tless/test_targets_bop19.json",
+  "images": 1000,
+  "rows": 6422,
+  "csv": "evaluation/rvc6d_tless-test.csv",
+  "coverage": {
+    "target_tuples": 4904,
+    "target_instances": 6423,
+    "covered_instances": 6422,
+    "missing_instances": 1,
+    "missing_target_tuples": 1,
+    "missing_preview": [
+      {
+        "scene_id": 14,
+        "im_id": 12,
+        "obj_id": 22,
+        "required_instances": 2,
+        "detected_proposals": 1
+      }
+    ]
+  },
+  "pose_time_s": {
+    "count": 1000,
+    "mean_s": 0.005180336116114632,
+    "median_s": 0.0050551919266581535,
+    "p95_s": 0.007098784297704696
+  },
+  "image_time_s": {
+    "count": 1000,
+    "mean_s": 0.08769570086523891,
+    "median_s": 0.08690983796259388,
+    "p95_s": 0.09303073133924045
+  },
+  "wall_time_s": 39.44490252784453,
+  "csv_time_mode": "det_plus_pose",
+  "cuda_graph_sizes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "complexity": {
+    "parameters_M": 2.451,
+    "gflops": 4.0517,
+    "input_size": 128,
+    "num_points": 1024
+  },
+  "graph_capture_fallbacks": [],
+  "verified_images": 3,
+  "timing_note": "pose time = H2D + forward + fused decode + D2H + metric translation restore, CUDA synchronized, one batch per image; csv time adds the detector time from the detection JSON (BOP detector+pose convention)"
+}
