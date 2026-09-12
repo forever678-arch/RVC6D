@@ -40,7 +40,8 @@ training on LM-O uses `train_pbr` (+ real `train`).
 ```
 data/tless/                     # or set TLESS_ROOT
 ├── test_primesense/000000/     # rgb/ depth/ mask_visib/ scene_gt.json scene_gt_info.json scene_camera.json
-├── train_pbr/...
+├── train_pbr/...               # training only (BOP T-LESS train_pbr)
+├── train_primesense/...        # optional real split for training
 ├── models_eval/  (or model_eval/)   # obj_XXXXXX.ply + models_info.json
 ├── classes.txt                 # one BOP object id per line, ascending
 ├── test_targets_bop19.json
