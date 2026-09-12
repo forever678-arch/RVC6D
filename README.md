@@ -9,6 +9,29 @@ The full model uses **2.45M parameters** and **4.05 GFLOPs per 128x128 crop** (t
 This repository is the clean release: one training entry point, one
 end-to-end detection-track evaluation entry point, and the released weights.
 
+## Overview
+
+![RVC6D architecture](assets/overview.png)
+
+**RVC6D** takes an aligned RGB crop and organized XYZ coordinates, together
+with a class-specific CAD model, and predicts the object pose (R, t) in the
+camera frame. Processing follows three functional groups:
+
+- **F — reliability-aware RGB-XYZ feature organization.** Dual encoders with
+  two-scale cross-modal fusion conditioned on depth validity and per-point
+  reliability, followed by boundary-detail refinement.
+- **A — ambiguity-preserving pose heads.** Class-conditioned object token;
+  four rotation candidates and three depth modes are kept before committing
+  to a solution.
+- **G — visible-surface correspondence with bounded refinement.** Image
+  evidence is compressed onto fixed CAD anchors and consumed by two bounded
+  residual updates that reuse the correspondence evidence.
+
+Dense vote weights aggregate translations and object-level quality scores
+rank candidate boxes; the SARR decoder outputs the final pose. Validity (V),
+point reliability (rho), and the object token are reused across the pose and
+geometry branches, as indicated by the dashed arrows in the figure.
+
 ## Released checkpoints (`checkpoints/`)
 
 | File | Dataset | Description |
