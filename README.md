@@ -3,9 +3,8 @@
 RVC6D is a compact RGB-D 6D object pose estimator organized into three
 functional groups: reliability-aware RGB-XYZ feature organization (**F**),
 ambiguity-preserving multi-hypothesis pose heads (**A**), and visible-surface
-CAD correspondence with bounded residual refinement (**G**). A
-balance-modal-constraint (BMC) regularizer acts only during training.
-The full model uses **2.45M parameters** and **4.20 GFLOPs per 128x128 crop**.
+CAD correspondence with bounded residual refinement (**G**).
+The full model uses **2.45M parameters** and **4.05 GFLOPs per 128x128 crop** (torch profiler).
 
 This repository is the clean release: one training entry point, one
 end-to-end detection-track evaluation entry point, and the released weights.
@@ -103,7 +102,7 @@ detection-track result.
 ```bash
 # T-LESS (PBR + real mixed sampling)
 python train.py --dataset tless --experiment release_run \
-  --train_splits train_pbr train_primesense --real_sampling_ratio 1.0
+  --train_splits train_pbr train_primesense --real_sampling_ratio 0.05
 
 # LM-O (PBR + real mixed sampling)
 python train.py --dataset lmo --experiment release_run \
@@ -124,7 +123,7 @@ python train.py --dataset lmo --experiment release_run \
 train.py                      training + internal validation
 tools/evaluate_bop_detections.py  end-to-end detection-track BOP19 evaluation
 datasets/tless/               PoseDataset (T-LESS / LM-O, bbox-driven crops)
-models/                       RVC6D (F/A/G groups, BMC)
+models/                       RVC6D (F/A/G groups)
 lib/                          SARR, point reliability filter, refinement, AUC
 checkpoints/                  released T-LESS / LM-O weights
 ```
