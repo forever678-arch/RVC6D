@@ -1,0 +1,14 @@
+# datasets and large inputs
+data/
+*.json
+!datasets/tless/tless_gp.json
+# run artifacts
+evaluation/
+experiments/
+logs/
+*.log
+*.csv
+# python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

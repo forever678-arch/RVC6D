@@ -1,0 +1,14 @@
+# This citation metadata is anonymized for double-blind review.
+# Upon acceptance, replace the authors with the real author list and
+# add the DOI assigned by the archive (e.g. Zenodo).
+cff-version: 1.2.0
+title: "RVC6D: Reliability-Aware Visible Surface Correspondence for Real-Time RGB-D 6D Pose Estimation"
+message: >-
+  If you use this software, please cite it using the metadata provided.
+type: software
+authors:
+  - name: Anonymous Authors
+version: 1.0.0
+date-released: "2026-09-12"
+license: MIT
+repository-code: "https://anonymous.4open.science/r/rvc6d"
