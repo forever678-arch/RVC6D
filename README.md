@@ -11,7 +11,7 @@ end-to-end detection-track evaluation entry point, and the released weights.
 
 ## Overview
 
-![RVC6D architecture](assets/overview.png)
+[![RVC6D architecture](assets/overview.png)](assets/overview.pdf)
 
 **RVC6D** takes an aligned RGB crop and organized XYZ coordinates, together
 with a class-specific CAD model, and predicts the object pose (R, t) in the
