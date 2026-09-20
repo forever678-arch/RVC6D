@@ -179,7 +179,7 @@ checkpoints/                  released T-LESS / LM-O weights
 ## Code availability
 
 The code, released weights, and evaluation results are archived on Zenodo
-(DOI [10.5281/zenodo.22726062](https://doi.org/10.5281/zenodo.22726062)).
+(DOI [10.5281/zenodo.22726061](https://doi.org/10.5281/zenodo.22726061)).
 
 ## License
 
