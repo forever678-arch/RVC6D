@@ -1,9 +1,12 @@
 # RVC6D: Reliability-Aware Visible-Surface Correspondence for Real-Time RGB-D 6D Pose Estimation
 
-RVC6D is a compact RGB-D 6D object pose estimator organized into three
-functional groups: reliability-aware RGB-XYZ feature organization (**F**),
-ambiguity-preserving multi-hypothesis pose heads (**A**), and visible-surface
-CAD correspondence with bounded residual refinement (**G**).
+RVC6D is a compact RGB-D 6D object pose estimator organized around one
+shared CAD correspondence interface: a compact set of object-specific
+anchors is matched once to reliability-conditioned image features, and the
+cached evidence serves two uses. Before pose prediction it supplies
+geometric context to the pose heads; after prediction it is reused as
+observations for two parameter-shared, bounded corrections of the
+predicted pose.
 The full model uses **2.45M parameters** and **4.05 GFLOPs per 128x128 crop** (torch profiler).
 
 This repository is the clean release: one training entry point, one
@@ -15,22 +18,38 @@ end-to-end detection-track evaluation entry point, and the released weights.
 
 **RVC6D** takes an aligned RGB crop and organized XYZ coordinates, together
 with a class-specific CAD model, and predicts the object pose (R, t) in the
-camera frame. Processing follows three functional groups:
+camera frame:
 
-- **F — reliability-aware RGB-XYZ feature organization.** Dual encoders with
-  two-scale cross-modal fusion conditioned on depth validity and per-point
-  reliability, followed by boundary-detail refinement.
-- **A — ambiguity-preserving pose heads.** Class-conditioned object token;
-  four rotation candidates and three depth modes are kept before committing
-  to a solution.
-- **G — visible-surface correspondence with bounded refinement.** Image
-  evidence is compressed onto fixed CAD anchors and consumed by two bounded
-  residual updates that reuse the correspondence evidence.
+- **Reliability-conditioned observation encoding.** Dual encoders with
+  two-scale cross-modal exchange conditioned on depth validity and
+  per-point reliability, followed by boundary-detail refinement.
+- **Shared CAD correspondence interface.** Image evidence is associated
+  with fixed CAD anchors once; anchor-wise normalization reads CAD context
+  into the image features, and the cached associations are retained
+  afterwards.
+- **Ambiguity-preserving pose initialization.** Class-conditioned object
+  token; four rotation candidates and three depth modes are kept before
+  committing to a solution.
+- **Correspondence reuse for geometric correction.** Pixel-wise
+  aggregation of the cached evidence yields observed anchors; two bounded
+  residual updates reuse them to correct the initial pose.
 
 Dense vote weights aggregate translations and object-level quality scores
 rank candidate boxes; the SARR decoder outputs the final pose. Validity (V),
 point reliability (rho), and the object token are reused across the pose and
 geometry branches, as indicated by the dashed arrows in the figure.
+
+## Results (official BOP19 protocol)
+
+| Dataset | Box protocol | AR |
+|---|---|---:|
+| T-LESS | GT boxes | **77.0** |
+| T-LESS | DefaultDetections | 75.3 |
+| LM-O | GT boxes | **71.4** |
+| LM-O | DefaultDetections | 69.5 |
+
+Full per-metric recalls, timing, and reproduction commands are in
+[`RESULTS.md`](RESULTS.md); per-metric tables and ablations are in the paper.
 
 ## Released checkpoints (`checkpoints/`)
 
@@ -146,19 +165,24 @@ python train.py --dataset lmo --experiment release_run \
 train.py                      training + internal validation
 tools/evaluate_bop_detections.py  end-to-end detection-track BOP19 evaluation
 datasets/tless/               PoseDataset (T-LESS / LM-O, bbox-driven crops)
-models/                       RVC6D (F/A/G groups)
+models/                       RVC6D network and heads implementation
 lib/                          SARR, point reliability filter, refinement, AUC
 checkpoints/                  released T-LESS / LM-O weights
 ```
 
+## Authors
+
+- **Wang Min** — School of Aeronautical Engineering, Civil Aviation University of China
+- **Jia Lishan** (corresponding author, lsjia@cauc.edu.cn) — College of
+  Electronic Information and Automation, Civil Aviation University of China
+
 ## Code availability
 
 The code, released weights, and evaluation results are archived on Zenodo
-(DOI [10.5281/zenodo.22726061](https://doi.org/10.5281/zenodo.22726061)).
+(DOI [10.5281/zenodo.22726062](https://doi.org/10.5281/zenodo.22726062)).
 
 ## License
 
-Released under the MIT License (see `LICENSE`) for double-blind review;
-the author list is anonymized and will be replaced upon acceptance.
+Released under the MIT License (see `LICENSE`).
 `lib/transformations.py` contains third-party code by Christoph Gohlke
 (BSD 3-Clause); its original notice is retained in the file header.
