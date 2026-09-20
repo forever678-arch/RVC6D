@@ -172,9 +172,7 @@ checkpoints/                  released T-LESS / LM-O weights
 
 ## Authors
 
-- **Wang Min** — School of Aeronautical Engineering, Civil Aviation University of China
-- **Jia Lishan** (corresponding author, lsjia@cauc.edu.cn) — College of
-  Electronic Information and Automation, Civil Aviation University of China
+- **Wang Min** — Civil Aviation University of China
 
 ## Code availability
 
